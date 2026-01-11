@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Portfolio</title>
+  <meta name="description" content="Portfolio of Your Name." />
+  <style>
+    :root{--bg:#0b0f17;--card:#121a2a;--text:#eaf0ff;--muted:#a9b3c9;--accent:#6aa6ff}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;
+    background:radial-gradient(900px 500px at 20% -10%,#1b2b55,transparent),var(--bg);color:var(--text)}
+    .wrap{max-width:980px;margin:0 auto;padding:56px 20px}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    header{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+    h1{margin:0;font-size:40px;letter-spacing:-.02em}
+    p{color:var(--muted);line-height:1.6;margin:10px 0 0;max-width:60ch}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{padding:10px 12px;border:1px solid #2a3654;border-radius:999px;background:rgba(18,26,42,.75);color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:28px}
+    .card{grid-column:span 12;border:1px solid #26324d;border-radius:16px;background:rgba(18,26,42,.75);padding:18px}
+    @media(min-width:820px){.half{grid-column:span 6}.third{grid-column:span 4}}
+    h2{margin:0 0 10px;font-size:18px}
+    .meta{font-size:13px;color:var(--muted);margin-top:6px}
+    footer{margin-top:24px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Your Name</h1>
+        <p>Short one-liner about what you do. Add 1–2 lines about your focus and what you’re looking for.</p>
+        <div class="buttons">
+          <a class="btn" href="mailto:you@email.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/yourhandle">LinkedIn</a>
+          <a class="btn" href="https://github.com/yourusername">GitHub</a>
+          <a class="btn" href="./resume.pdf">Resume</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="card half">
+        <h2>About</h2>
+        <div class="meta">Location • Role • Interests</div>
+        <p>Add a short bio: what you’ve done, what you enjoy building, what you want next.</p>
+      </div>
+
+      <div class="card half">
+        <h2>Skills</h2>
+        <p>HTML • CSS • JavaScript • React • Python • SQL • Figma (edit this list)</p>
+      </div>
+
+      <div class="card third">
+        <h2>Project One</h2>
+        <p>1–2 lines: what it is, impact, tech used.</p>
+        <div class="buttons">
+          <a class="btn" href="https://demo-link.com">Live</a>
+          <a class="btn" href="https://github.com/yourusername/project">Code</a>
+        </div>
+      </div>
+
+      <div class="card third">
+        <h2>Project Two</h2>
+        <p>1–2 lines: what it is, impact, tech used.</p>
+        <div class="buttons">
+          <a class="btn" href="https://demo-link.com">Live</a>
+          <a class="btn" href="https://github.com/yourusername/project">Code</a>
+        </div>
+      </div>
+
+      <div class="card third">
+        <h2>Project Three</h2>
+        <p>1–2 lines: what it is, impact, tech used.</p>
+        <div class="buttons">
+          <a class="btn" href="https://demo-link.com">Live</a>
+          <a class="btn" href="https://github.com/yourusername/project">Code</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:you@email.com">you@email.com</a> • Or add a Calendly link.</p>
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Your Name • Hosted free on GitHub Pages</footer>
+  </div>
+
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
