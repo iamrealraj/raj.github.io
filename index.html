@@ -57,6 +57,70 @@ With a background in mechanical engineering and experience across automotive and
         <p> • Bachelor of Engineering | Mechanical Engineering, JSPM’s Rajarshi Shahu College of Engineering <p> 07/2014 – 07/2018 Pune, India </p> </p>
       </div>
 
+      <!-- Two adjacent cards row -->
+<section class="two-cards">
+  <div class="card">
+    <h3>Card Title 1</h3>
+    <p>
+      Write a short description here. Add highlights, links, or anything you want.
+    </p>
+    <a class="card-link" href="#" target="_blank" rel="noopener">Learn more →</a>
+  </div>
+
+  <div class="card">
+    <h3>Card Title 2</h3>
+    <p>
+      Write a short description here. You can also add bullet points or buttons.
+    </p>
+    <a class="card-link" href="#" target="_blank" rel="noopener">View details →</a>
+  </div>
+</section>
+
+<style>
+  /* 2 cards side-by-side */
+  .two-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  /* Stack on small screens */
+  @media (max-width: 820px){
+    .two-cards{ grid-template-columns: 1fr; }
+  }
+
+  /* Card styling (dark glass look) */
+  .card{
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px;
+    padding: 18px;
+    background: rgba(18,26,42,0.75);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .card h3{
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #eaf0ff;
+  }
+
+  .card p{
+    margin: 0 0 12px;
+    line-height: 1.6;
+    color: #a9b3c9;
+  }
+
+  .card-link{
+    color: #6aa6ff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .card-link:hover{
+    text-decoration: underline;
+  }
+</style>
+
       <div class="card third">
         <h2>Developing Strategy: A case study advising De Beers on orchestration and innovation</h2>
         <p>This personal project analyzes how De Beers Group, a global leader in diamond industry, can transition from a traditional egocentric strategy to an allocentric orchestration model, where value is co-created through networks of partners, technology, and sustainability ecosystems.
