@@ -1,164 +1,570 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Raj Rajapurkar - Portfolio</title>
-  <meta name="description" content="Portfolio of Your Name." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raj Kishor Rajapurkar — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet" />
   <style>
-    :root{--bg:#0b0f17;--card:#121a2a;--text:#eaf0ff;--muted:#a9b3c9;--accent:#6aa6ff}
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial;
-    background:radial-gradient(900px 500px at 20% -10%,#1b2b55,transparent),var(--bg);color:var(--text)}
-    .wrap{max-width:980px;margin:0 auto;padding:56px 20px}
-    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
-    header{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
-    h1{margin:0;font-size:40px;letter-spacing:-.02em}
-    p{color:var(--muted);line-height:1.6;margin:10px 0 0;max-width:60ch}
-    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .btn{padding:10px 12px;border:1px solid #2a3654;border-radius:999px;background:rgba(18,26,42,.75);color:var(--text)}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:28px}
-    .card{grid-column:span 12;border:1px solid #26324d;border-radius:16px;background:rgba(18,26,42,.75);padding:18px}
-    @media(min-width:820px){.half{grid-column:span 6}.third{grid-column:span 4}}
-    h2{margin:0 0 10px;font-size:18px}
-    .meta{font-size:13px;color:var(--muted);margin-top:6px}
-    footer{margin-top:24px;color:var(--muted);font-size:13px}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #161616;
+      --surface2:#1e1e1e;
+      --border:  #2a2a2a;
+      --text:    #f0ece4;
+      --muted:   #6b6660;
+      --gold:    #c9a84c;
+      --gold-light: #e8d5a3;
+      --gold-dim:#3d2e10;
+      --max-w:   820px;
+      --radius:  12px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    /* Ambient glow blobs */
+    .blob {
+      position: fixed; border-radius: 50%;
+      filter: blur(120px); pointer-events: none; z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: rgba(201,168,76,0.06); top: -100px; right: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: rgba(201,168,76,0.04); bottom: 20%; left: -150px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.95), transparent);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; letter-spacing: 0.05em;
+      color: var(--gold); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 120px 48px 80px;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.6s 0.3s ease forwards;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 32px; height: 1px; background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.02em; color: var(--text);
+      margin-bottom: 8px;
+      opacity: 0; animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 16px; font-weight: 300;
+      color: var(--muted); max-width: 48ch;
+      margin-top: 20px; margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.6s 0.75s ease forwards;
+    }
+
+    .hero-cta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.6s 0.95s ease forwards;
+    }
+    .btn {
+      display: inline-block; padding: 13px 28px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      border-radius: 2px; transition: all 0.3s ease;
+    }
+    .btn-gold {
+      background: var(--gold); color: #0d0d0d;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.3); }
+    .btn-outline {
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* Scroll line */
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 48px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+      opacity: 0; animation: fadeUp 0.6s 1.2s ease forwards;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block; width: 48px; height: 1px;
+      background: var(--border);
+      animation: lineGrow 1s 1.5s ease forwards;
+      transform-origin: left; transform: scaleX(0);
+    }
+    @keyframes lineGrow { to { transform: scaleX(1); } }
+
+    /* ── Sections ── */
+    section {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 80px 48px;
+      position: relative; z-index: 1;
+    }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    .section-tag {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--text); margin-bottom: 40px;
+    }
+
+    /* ── About ── */
+    .about-body { display: grid; grid-template-columns: 1fr 200px; gap: 48px; align-items: start; }
+    .about-text { font-size: 16px; color: #a09b94; line-height: 1.85; }
+    .about-aside { display: flex; flex-direction: column; gap: 24px; padding-top: 4px; }
+    .aside-item { border-left: 1px solid var(--gold-dim); padding-left: 16px; }
+    .aside-val { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); }
+    .aside-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ── Experience ── */
+    .exp-item {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 0 32px; padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-year { font-size: 11px; color: var(--muted); padding-top: 4px; line-height: 1.5; }
+    .exp-content h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 4px; }
+    .exp-role { font-size: 12px; color: var(--gold); font-weight: 400; letter-spacing: 0.08em; margin-bottom: 12px; text-transform: uppercase; }
+    .exp-content ul { list-style: none; }
+    .exp-content ul li {
+      font-size: 14px; color: #7a7570; padding: 4px 0 4px 16px;
+      position: relative; line-height: 1.6;
+    }
+    .exp-content ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold-dim); font-size: 10px; top: 9px; }
+
+    /* ── Education ── */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .edu-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .edu-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
+    .edu-card:hover::before { transform: scaleX(1); }
+    .edu-year { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .edu-school { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text); margin-bottom: 4px; }
+    .edu-degree { font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .edu-note { font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.5; }
+
+    /* ── Projects ── */
+    .projects-list { display: flex; flex-direction: column; gap: 2px; }
+    .project-row {
+      display: grid; grid-template-columns: 48px 1fr auto;
+      align-items: center; gap: 24px;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: padding-left 0.3s ease;
+      cursor: pointer;
+    }
+    .project-row:last-child { border-bottom: none; }
+    .project-row:hover { padding-left: 12px; }
+    .project-num {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.6rem; color: var(--gold-dim);
+      transition: color 0.3s;
+    }
+    .project-row:hover .project-num { color: var(--gold); }
+    .project-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--text); margin-bottom: 4px; }
+    .project-desc { font-size: 13px; color: var(--muted); }
+    .project-tag-sm {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .project-row:hover .project-tag-sm { color: var(--gold); }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .skill-group h3 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .skill-list { display: flex; flex-direction: column; gap: 10px; }
+    .skill-row { display: flex; align-items: center; gap: 12px; }
+    .skill-name { font-size: 13px; color: #a09b94; min-width: 120px; }
+    .skill-bar { flex: 1; height: 2px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .skill-fill {
+      height: 100%; background: var(--gold); width: 0;
+      border-radius: 999px;
+      transition: width 1s cubic-bezier(0.22,1,0.36,1);
+    }
+    .skill-fill.animated { width: var(--fw); }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-dark {
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 6px 14px; font-size: 12px; color: var(--muted);
+      transition: border-color 0.2s, color 0.2s;
+      cursor: default;
+    }
+    .tag-dark:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+    /* ── Contact ── */
+    .contact-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .contact-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; text-decoration: none;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .contact-card::after {
+      content: '↗';
+      position: absolute; top: 20px; right: 20px;
+      font-size: 16px; color: var(--border);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .contact-card:hover { border-color: var(--gold-dim); background: rgba(201,168,76,0.03); transform: translateY(-3px); }
+    .contact-card:hover::after { color: var(--gold); transform: translate(2px, -2px); }
+    .c-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .c-val { font-size: 15px; font-weight: 400; color: var(--text); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+      font-size: 11px; color: var(--muted); letter-spacing: 0.08em;
+    }
+    footer span { color: var(--gold); }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    @media(max-width:640px){
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero, section { padding-left: 24px; padding-right: 24px; }
+      .hero h1 { font-size: 2.8rem; }
+      .about-body { grid-template-columns: 1fr; }
+      .edu-grid, .skills-grid, .contact-row { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 4px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div style="text-align:center;">
-      <img src="ResumePic.png" alt="Profile photo" width="160" style="border-radius:50%;">
-      </div>
-      <div>
-        <h1>Raj Kishor Rajapurkar</h1>
-        <p> </p>
-        <div class="buttons">
-          <a class="btn" href="mailto:rajrajapurkar99@email.com">Email</a>
-          <a class="btn" href="https://www.linkedin.com/in/realraj11">LinkedIn</a>
-          <a class="btn" href="https://beyond-the-classroom-by-raj.blogspot.com/">Blog</a>
-          <a class="btn" href="./Raj_Resume1.pdf">Resume</a>
-        </div>
-      </div>
-    </header>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-    <section class="grid">
-      <div class="card half">
-        <h2>About</h2>
-        <div class="meta">Functional Analyst • Berlin, DE </div>
-        <p>Hey! My name is Raj, a Functional Analyst in the banking and financial services domain who enjoys turning complex ideas into simple, practical solutions. I work at the intersection of business, technology, and strategy, collaborating closely with stakeholders and tech teams.
-With a background in mechanical engineering and experience across automotive and finance, I’m currently pursuing a Global MBA in Berlin, Germany. I also enjoy blogging about strategy and management, sharing learnings beyond the classroom.</p>
-      </div>
+  <nav id="mainNav">
+    <a class="nav-logo" href="#">RKR</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Work</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-      <div class="card half">
-        <h2>Education</h2>
-        <p> • Global MBA | Business Strategy & Innovation, Gisma University of Applied Sciences <p> 03/2025 – 03/2026 Berlin, Germany </p> </p>
-        <p> • PGDM (Distance Program) | Operations Management, Welingkar Institute of Management <p> 07/2019 – 07/2021 Mumbai, India </p> </p>
-        <p> • Bachelor of Engineering | Mechanical Engineering, JSPM’s Rajarshi Shahu College of Engineering <p> 07/2014 – 07/2018 Pune, India </p> </p>
-      </div>
-
-      <!-- Two adjacent cards row -->
-<section class="two-cards">
-  <div class="card">
-    <h3>Professional Experience</h3>
-    <p>
-      • June 2021 to March 2025 | TATA CONSULTANCY SERVICES - Functional Analyst | Domain: Banking and Financial Services
-      • Jan 2019 to August 2020 | TATA TECHNOLOGIES LIMITED - Graduate Apprentice Trainee | Domain: Automotive Engineering
-      • Sep 2018 to Dec 2018 | KUUALITY CONVEYORS - Intern
-      • Jun 2017 to Jun 2017 | KELVION INDIA - Academic Intern
-    </p>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">Functional Analyst · MBA Candidate</div>
+    <h1>Raj Kishor<br><em>Rajapurkar</em></h1>
+    <p class="hero-sub">Business management professional with 4+ years at the intersection of banking, technology, and strategy. Based in Berlin, Germany.</p>
+    <div class="hero-cta">
+      <a href="./Raj_Resume1.pdf" target="_blank" class="btn btn-gold">Download CV</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
   </div>
 
-  <div class="card">
-    <h3>Skills</h3>
-    <p> 
-      • Technical & Tools : Jira, MS Office, Technical Writing, APIs, HTML, SQL, AI Tools (ChatGPT, Perplexity etc), Design and collab tools (Canva, Miro).
-      • Domain: Business Management, Project Management, Capital Markets, Strategic Management, Marketing Management
-    </p>
-    <a class="card-link" href="#" target="_blank" rel="noopener">View details →</a>
-  </div>
-</section>
+  <!-- About -->
+  <section id="about">
+    <p class="section-tag reveal">About</p>
+    <h2 class="reveal reveal-delay-1">Where Business<br>Meets Technology</h2>
+    <div class="about-body reveal reveal-delay-2">
+      <p class="about-text">
+        Business management professional with 4+ years of experience in banking and technology-enabled environments, supporting strategy execution, business analysis, and stakeholder management. Experienced in cross-functional, client-facing roles across India and Germany. Currently pursuing a Global MBA in Berlin and seeking management consulting roles aligned with my international background.
+      </p>
+      <div class="about-aside">
+        <div class="aside-item"><div class="aside-val" data-target="4" data-suffix="+">0</div><div class="aside-label">Years Exp.</div></div>
+        <div class="aside-item"><div class="aside-val" data-target="15" data-suffix="+">0</div><div class="aside-label">Demos</div></div>
+        <div class="aside-item"><div class="aside-val" data-target="2" data-suffix="">0</div><div class="aside-label">Countries</div></div>
+      </div>
+    </div>
+  </section>
 
-<style>
-  /* 2 cards side-by-side */
-  .two-cards{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 16px;
-  }
+  <!-- Experience -->
+  <section id="experience">
+    <p class="section-tag reveal">Work History</p>
+    <h2 class="reveal reveal-delay-1">Professional<br>Experience</h2>
 
-  /* Stack on small screens */
-  @media (max-width: 820px){
-    .two-cards{ grid-template-columns: 1fr; }
-  }
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-year">2022–2025<br>Pune &amp; Frankfurt</div>
+      <div class="exp-content">
+        <h3>Tata Consultancy Services</h3>
+        <div class="exp-role">Functional Analyst · Banking &amp; FS</div>
+        <ul>
+          <li>Partnered with 4+ stakeholders, including on-site in Frankfurt, to align business requirements with solution delivery.</li>
+          <li>Led analysis for 5+ functional modules — user stories, CRs, UAT coordination — supporting on-time releases.</li>
+          <li>Prepared dashboards and business cases used by senior management across multi-quarter programs.</li>
+          <li>Delivered 15+ client demos and coordinated large-scale engagement events.</li>
+        </ul>
+      </div>
+    </div>
 
-  /* Card styling (dark glass look) */
-  .card{
-    border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 16px;
-    padding: 18px;
-    background: rgba(18,26,42,0.75);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  }
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-year">2021–2022<br>Pune</div>
+      <div class="exp-content">
+        <h3>Tata Consultancy Services</h3>
+        <div class="exp-role">Assistant System Engineer · Banking &amp; FS</div>
+        <ul>
+          <li>Built automation frameworks for trading platform testing — reduced manual effort ~30%, saving ~$5K/yr.</li>
+          <li>Tracked 3+ concurrent modules, monitoring stability metrics and SLA compliance.</li>
+          <li>Maintained high-availability platform components (APIs, Matcher systems).</li>
+        </ul>
+      </div>
+    </div>
 
-  .card h3{
-    margin: 0 0 10px;
-    font-size: 18px;
-    color: #eaf0ff;
-  }
+    <div class="exp-item reveal reveal-delay-3">
+      <div class="exp-year">2019–2020<br>Pune</div>
+      <div class="exp-content">
+        <h3>Tata Technologies Limited</h3>
+        <div class="exp-role">Graduate Apprentice · Automotive Engineering</div>
+        <ul>
+          <li>Supported design of 5+ chassis components ensuring safety compliance and timeline adherence.</li>
+          <li>Managed part release in SAP and PLM systems for smooth cross-functional handovers.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-  .card p{
-    margin: 0 0 12px;
-    line-height: 1.6;
-    color: #a9b3c9;
-  }
+  <!-- Education -->
+  <section id="education">
+    <p class="section-tag reveal">Education</p>
+    <h2 class="reveal reveal-delay-1">Academic<br>Background</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal reveal-delay-1">
+        <div class="edu-year">2025 – 2026 · Berlin, Germany</div>
+        <div class="edu-school">Gisma University of Applied Sciences</div>
+        <div class="edu-degree">Global MBA · Business Strategy &amp; Innovation</div>
+        <p class="edu-note">Thesis: AI-enabled Balanced Scorecard for CRM transformation in Banking &amp; Financial Services.</p>
+      </div>
+      <div class="edu-card reveal reveal-delay-2">
+        <div class="edu-year">2019 – 2021 · Mumbai, India</div>
+        <div class="edu-school">Welingkar Institute of Management</div>
+        <div class="edu-degree">PGDM · Operations Management</div>
+      </div>
+      <div class="edu-card reveal reveal-delay-3">
+        <div class="edu-year">2014 – 2018 · Pune, India</div>
+        <div class="edu-school">JSPM's Rajarshi Shahu College of Engineering</div>
+        <div class="edu-degree">B.E. · Mechanical Engineering</div>
+      </div>
+    </div>
+  </section>
 
-  .card-link{
-    color: #6aa6ff;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  .card-link:hover{
-    text-decoration: underline;
-  }
-</style>
+  <!-- Projects -->
+  <section id="projects">
+    <p class="section-tag reveal">Academic Projects</p>
+    <h2 class="reveal reveal-delay-1">Case Studies &amp;<br>Research</h2>
+    <div class="projects-list">
+      <a class="project-row reveal reveal-delay-1" href="https://tinted-ear-6a1.notion.site/Developing-Strategy-A-case-study-advising-De-Beers-on-orchestration-and-innovation-29d798d04fad80ba8d69c2c9037e051c" target="_blank">
+        <div class="project-num">01</div>
+        <div><div class="project-title">Advising De Beers on Orchestration &amp; Innovation</div><div class="project-desc">Egocentric → allocentric strategy, value networks &amp; sustainability ecosystems</div></div>
+        <div class="project-tag-sm">Strategy</div>
+      </a>
+      <a class="project-row reveal reveal-delay-2" href="https://tinted-ear-6a1.notion.site/Strategic-approach-to-Diversity-Equity-Inclusion-29b798d04fad80f383c0fd760d3b7f5b" target="_blank">
+        <div class="project-num">02</div>
+        <div><div class="project-title">Strategic Approach to DEI</div><div class="project-desc">Integrating inclusive values into HR systems for sustainable inclusion</div></div>
+        <div class="project-tag-sm">DEI · HR</div>
+      </a>
+      <a class="project-row reveal reveal-delay-3" href="https://tinted-ear-6a1.notion.site/Consulting-Case-Study-Building-behavioral-competencies-for-virtual-teams-at-Liquid-Assets-2a2798d04fad80949063da40ae2e36c5" target="_blank">
+        <div class="project-num">03</div>
+        <div><div class="project-title">Virtual Team Competencies at Liquid Assets</div><div class="project-desc">Global collaboration model for multicultural digital environments</div></div>
+        <div class="project-tag-sm">Consulting</div>
+      </a>
+      <a class="project-row reveal reveal-delay-4" href="#" target="_blank">
+        <div class="project-num">04</div>
+        <div><div class="project-title">Launching 'SKIA' — Sustainable Winter Footwear</div><div class="project-desc">Brand strategy &amp; market entry for the German market</div></div>
+        <div class="project-tag-sm">Brand Strategy</div>
+      </a>
+    </div>
+  </section>
 
-      <div class="card third">
-        <h2>Developing Strategy: A case study advising De Beers on orchestration and innovation</h2>
-        <p>This personal project analyzes how De Beers Group, a global leader in diamond industry, can transition from a traditional egocentric strategy to an allocentric orchestration model, where value is co-created through networks of partners, technology, and sustainability ecosystems.
-The goal was to explore how a legacy luxury brand can remain innovative, ethical, and resilient amid technological disruption.</p>
-        <div class="buttons">
-          <a class="btn" href="https://tinted-ear-6a1.notion.site/Developing-Strategy-A-case-study-advising-De-Beers-on-orchestration-and-innovation-29d798d04fad80ba8d69c2c9037e051c">Link</a>  
+  <!-- Skills -->
+  <section id="skills">
+    <p class="section-tag reveal">Skills</p>
+    <h2 class="reveal reveal-delay-1">Expertise &amp; Tools</h2>
+    <div class="skills-grid">
+      <div class="reveal reveal-delay-1">
+        <div class="skill-group">
+          <h3>Proficiency</h3>
+          <div class="skill-list">
+            <div class="skill-row"><span class="skill-name">Business Analysis</span><div class="skill-bar"><div class="skill-fill" style="--fw:90%"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Stakeholder Mgmt</span><div class="skill-bar"><div class="skill-fill" style="--fw:88%"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Project Management</span><div class="skill-bar"><div class="skill-fill" style="--fw:82%"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Strategic Thinking</span><div class="skill-bar"><div class="skill-fill" style="--fw:80%"></div></div></div>
+            <div class="skill-row"><span class="skill-name">Technical Writing</span><div class="skill-bar"><div class="skill-fill" style="--fw:85%"></div></div></div>
+          </div>
         </div>
       </div>
-
-      <div class="card third">
-        <h2>Strategic approach to Diversity, Equity & Inclusion</h2>
-        <p>This consultation project focuses on designing a strategic Diversity, Equity & Inclusion (DEI) framework that integrates inclusive values into HR systems. The overall goal was to create a sustainable model of inclusion that enhances innovation, retention, and competitiveness.</p>
-        <div class="buttons">
-          <a class="btn" href="https://tinted-ear-6a1.notion.site/Strategic-approach-to-Diversity-Equity-Inclusion-29b798d04fad80f383c0fd760d3b7f5b">Link</a>
+      <div class="reveal reveal-delay-2">
+        <div class="skill-group">
+          <h3>Tools &amp; Tech</h3>
+          <div class="tag-cloud">
+            <span class="tag-dark">Jira</span><span class="tag-dark">MS Office</span>
+            <span class="tag-dark">SQL</span><span class="tag-dark">APIs</span>
+            <span class="tag-dark">HTML</span><span class="tag-dark">Canva</span>
+            <span class="tag-dark">Miro</span><span class="tag-dark">SAP</span>
+            <span class="tag-dark">ChatGPT</span><span class="tag-dark">Perplexity</span>
+          </div>
+        </div>
+        <br>
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="skill-list">
+            <div class="skill-row"><span class="skill-name">English (C1)</span><div class="skill-bar"><div class="skill-fill" style="--fw:88%"></div></div></div>
+            <div class="skill-row"><span class="skill-name">German (A2→B1)</span><div class="skill-bar"><div class="skill-fill" style="--fw:28%"></div></div></div>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="card third">
-        <h2>Consulting Case Study: Building behavioral competencies for virtual teams at Liquid Assets</h2>
-        <p>Objective is to develop and implement a virtual team integration model that enables global collaboration, builds trust, and enhances efficiency in multicultural digital environments.</p>
-        <div class="buttons">
-          <a class="btn" href="https://tinted-ear-6a1.notion.site/Consulting-Case-Study-Building-behavioral-competencies-for-virtual-teams-at-Liquid-Assets-2a2798d04fad80949063da40ae2e36c5">Link</a>
-      </div>
-      </div>
-      
-      <div class="card">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:rajrajapurkar99@gmail.com">rajrajapurkar99@gmail.com</a></p>
-        <p>Mobile: +49-15510368710 </p>
-      </div>
-    </section>
+  <!-- Contact -->
+  <section id="contact">
+    <p class="section-tag reveal">Contact</p>
+    <h2 class="reveal reveal-delay-1">Let's Connect</h2>
+    <div class="contact-row">
+      <a class="contact-card reveal reveal-delay-1" href="mailto:rajrajapurkar99@gmail.com">
+        <div class="c-label">Email</div>
+        <div class="c-val">rajrajapurkar99@gmail.com</div>
+      </a>
+      <a class="contact-card reveal reveal-delay-2" href="https://www.linkedin.com/in/realraj11" target="_blank">
+        <div class="c-label">LinkedIn</div>
+        <div class="c-val">linkedin.com/in/realraj11</div>
+      </a>
+      <a class="contact-card reveal reveal-delay-3" href="tel:+4915510368710">
+        <div class="c-label">Phone</div>
+        <div class="c-val">+49 155 1036 8710</div>
+      </a>
+      <a class="contact-card reveal reveal-delay-4" href="https://beyond-the-classroom-by-raj.blogspot.com/" target="_blank">
+        <div class="c-label">Blog</div>
+        <div class="c-val">Beyond the Classroom</div>
+      </a>
+    </div>
+  </section>
 
-    <footer>© <span id="y"></span> Raj Kishor Rajapurkar • Hosted on GitHub Pages</footer>
-  </div>
+  <footer>
+    <span>RKR</span>
+    <span>© 2025 Raj Kishor Rajapurkar</span>
+    <span>Berlin, DE</span>
+  </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script>
+    /* Reveal */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* Counters */
+    const co = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-target]').forEach(el => {
+          const t = +el.dataset.target, s = el.dataset.suffix||'';
+          let v=0; const inc=t/60;
+          const tm=setInterval(()=>{ v=Math.min(v+inc,t); el.textContent=Math.floor(v)+s; if(v>=t)clearInterval(tm); },16);
+          delete el.dataset.target;
+        });
+        co.unobserve(e.target);
+      });
+    },{ threshold: 0.3 });
+    document.querySelectorAll('.about-aside').forEach(el=>co.observe(el));
+
+    /* Skill bars */
+    const so = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.querySelectorAll('.skill-fill').forEach(b=>b.classList.add('animated')); so.unobserve(e.target); } });
+    },{ threshold: 0.2 });
+    document.querySelectorAll('.skills-grid').forEach(el=>so.observe(el));
+
+    /* Active nav */
+    const secs = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll',()=>{
+      let cur='';
+      secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-140) cur=s.id; });
+      navAs.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+cur));
+    },{ passive:true });
+  </script>
 </body>
 </html>
+
