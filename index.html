@@ -439,6 +439,86 @@
       .pf-arrow { display: none; }
       footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
+    /* ══════════════════════════════════════
+       LOGOS
+    ══════════════════════════════════════ */
+    .org-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+}
+.org-logo {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  object-fit: contain; padding: 4px;
+  flex-shrink: 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.exp-e:hover .org-logo,
+.edu-e:hover .org-logo {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(201,168,76,0.15);
+}
+.org-logo-fallback {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--amber-dim);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; color: var(--amber);
+  flex-shrink: 0;
+}
+    <!-- TCS -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/tcs.com" alt="TCS"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">TC</div>
+  <h3>Tata Consultancy Services</h3>
+</div>
+
+<!-- Tata Technologies -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/tatatechnologies.com" alt="Tata Technologies"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">TT</div>
+  <h3>Tata Technologies Limited</h3>
+</div>
+
+<!-- Kelvion -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/kelvion.com" alt="Kelvion"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">KV</div>
+  <h3>Kelvion India</h3>
+</div>
+
+<!-- Kuuality Conveyors (no public logo, monogram only) -->
+<div class="org-header">
+  <div class="org-logo-fallback">KC</div>
+  <h3>Kuuality Conveyors</h3>
+</div>
+    <!-- Gisma -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/gisma.com" alt="Gisma"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">GI</div>
+  <div class="ed-school">Gisma University of Applied Sciences</div>
+</div>
+
+<!-- Welingkar -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/welingkar.org" alt="Welingkar"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">WE</div>
+  <div class="ed-school">Welingkar Institute of Management</div>
+</div>
+
+<!-- JSPM -->
+<div class="org-header">
+  <img class="org-logo" src="https://logo.clearbit.com/jspmrscoe.edu.in" alt="JSPM"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+  <div class="org-logo-fallback" style="display:none">JP</div>
+  <div class="ed-school">JSPM's Rajarshi Shahu College of Engineering</div>
+</div>
+    
   </style>
 </head>
 <body>
